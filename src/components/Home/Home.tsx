@@ -3,7 +3,6 @@ import { Cards } from "../Cards/Cards";
 import { Item } from "../../types/types";
 import { useState, useEffect } from "react";
 import s from "../Home/Home.module.scss";
-import { Header } from "../Header/Header";
 
 export const Home = () => {
   const [collection, setCollection] = useState<Item[]>([]);
@@ -38,7 +37,6 @@ export const Home = () => {
 
   return (
     <div className={s.container}>
-      <Header />
       <SearchBar />
       <Cards items={collection} />
     </div>

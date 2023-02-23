@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import s from "../Header/Header.module.scss";
 
 export const Header = () => {
@@ -7,8 +8,12 @@ export const Header = () => {
         Museum Collection
       </a>
       <div className="sign-in_buttons">
-        <button className={s.btn}>Вход</button>
-        <button className={s.btn}>Регистрация</button>
+        <Link className={s.btn} to="/signin">
+          Вход
+        </Link>
+        <Link className={s.btn} to="/signup">
+          Регистрация
+        </Link>
       </div>
     </div>
   );

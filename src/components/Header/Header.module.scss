@@ -5,7 +5,7 @@
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20px;
 }
 
 .logo {
@@ -16,8 +16,11 @@
 }
 
 .btn {
+    display: inline-block;
     padding: 10px 15px;
     font-size: 1rem;
+    text-decoration: none;
+    color: #4d4d4d;
     border: 1px solid #612400;
 }
 
