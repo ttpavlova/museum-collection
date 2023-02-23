@@ -15,7 +15,7 @@ export const Home = () => {
   async function fetchCollection() {
     try {
       const response = await fetch(
-        `https://collectionapi.metmuseum.org/public/collection/v1/search?medium=Ivory&hasImages=true&q=Pagoda`
+        `https://collectionapi.metmuseum.org/public/collection/v1/search?medium=Sculpture&geoLocation=China&hasImages=true&q=""`
       );
       const json = await response.json();
       const firstTenIDs = json.objectIDs.slice(0, 10);
@@ -29,10 +29,6 @@ export const Home = () => {
       const items = await Promise.all(
         responses.map((response) => response.json())
       );
-
-      const classification = items.map((item) => item.classification);
-      console.log(items);
-      console.log(classification);
 
       setCollection(items);
     } catch (error) {

@@ -1,5 +1,15 @@
 .container {
+    padding: 20px;
+    background-color: #fff;
+}
+
+.container:hover {
+    .title {
+        text-decoration: underline;
+    }
+
     background-color: #e0e0e0;
+    cursor: pointer;
 }
 
 .image_wrapper {
@@ -10,4 +20,17 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.title {
+    margin: 15px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.description {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    text-align: center;
 }
