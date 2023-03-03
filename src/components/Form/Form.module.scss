@@ -1,0 +1,16 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+}
+
+.input {
+    margin-bottom: 15px;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: #612400;
+    transition: 0.1s ease;
+}

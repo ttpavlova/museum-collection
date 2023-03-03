@@ -1,27 +1,21 @@
+@use "/src/styles/variables";
+
 .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     max-width: 1280px;
+    height: #{variables.$header};
     margin: 0 auto;
     padding: 20px;
 }
 
 .logo {
     font-family: 'Noto Serif TC', serif;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     text-decoration: none;
     color: #3b3b3b;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 15px;
-    font-size: 1rem;
-    text-decoration: none;
-    color: #4d4d4d;
-    border: 1px solid #612400;
 }
 
 .btn:hover {
