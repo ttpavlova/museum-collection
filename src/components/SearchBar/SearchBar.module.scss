@@ -1,3 +1,5 @@
+@use "/src/styles/variables";
+
 .search {
     width: 100%;
 }
@@ -10,5 +12,5 @@
 }
 
 .search__input:focus {
-    border: 1px solid #3b3b3b;
+    border: 1px solid variables.$primary-color;
 }

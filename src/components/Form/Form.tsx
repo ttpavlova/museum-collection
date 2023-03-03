@@ -39,7 +39,7 @@ export const Form = ({ name }: FormProps) => {
         placeholder="Password"
         required
       ></input>
-      <button className={"btn " + s.btn}>{name}</button>
+      <button className={"btn btn-primary " + s.btn}>{name}</button>
     </form>
   );
 };
