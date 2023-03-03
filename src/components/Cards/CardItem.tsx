@@ -1,11 +1,11 @@
 import { Item } from "../../types/types";
 import s from "../Cards/CardItem.module.scss";
 
-interface CardsProps {
+interface CardItemProps {
   item: Item;
 }
 
-export const CardItem = ({ item }: CardsProps) => {
+export const CardItem = ({ item }: CardItemProps) => {
   return (
     <div className={s.container}>
       <div className={s.image_wrapper}>

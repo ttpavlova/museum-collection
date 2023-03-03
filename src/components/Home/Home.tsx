@@ -6,6 +6,7 @@ import s from "../Home/Home.module.scss";
 
 export const Home = () => {
   const [collection, setCollection] = useState<Item[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchCollection();
@@ -33,12 +34,14 @@ export const Home = () => {
     } catch (error) {
       console.log(error);
     }
+
+    setIsLoading(false);
   }
 
   return (
     <div className={s.container}>
       <SearchBar />
-      <Cards items={collection} />
+      <Cards items={collection} isLoading={isLoading} />
     </div>
   );
 };

@@ -4,14 +4,14 @@ import s from "../Header/Header.module.scss";
 export const Header = () => {
   return (
     <div className={s.container}>
-      <a href="/" className={s.logo}>
+      <Link to="/" className={s.logo}>
         Museum Collection
-      </a>
+      </Link>
       <div className="sign-in_buttons">
-        <Link className={s.btn} to="/signin">
+        <Link to="/signin" className={s.btn}>
           Вход
         </Link>
-        <Link className={s.btn} to="/signup">
+        <Link to="/signup" className={s.btn}>
           Регистрация
         </Link>
       </div>
