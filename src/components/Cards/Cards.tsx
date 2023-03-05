@@ -1,16 +1,15 @@
 import { CardItem } from "./CardItem";
-import { Item } from "../../types/types";
 import s from "../Cards/Cards.module.scss";
 
 interface CardsProps {
-  items: Item[];
+  IDs: number[];
 }
 
-export const Cards = ({ items }: CardsProps) => {
+export const Cards = ({ IDs }: CardsProps) => {
   return (
     <div className={s.container}>
-      {items.map((card) => (
-        <CardItem key={card.objectID} item={card} />
+      {IDs.map((id) => (
+        <CardItem key={id} id={id} />
       ))}
     </div>
   );

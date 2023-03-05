@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import collectionReducer from "./collectionSlice";
+import { collectionApi } from "../services/collectionApi";
 
 export const store = configureStore({
   reducer: {
-    collection: collectionReducer,
+    [collectionApi.reducerPath]: collectionApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(collectionApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
