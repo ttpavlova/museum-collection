@@ -4,14 +4,9 @@ import s from "../Cards/Cards.module.scss";
 
 interface CardsProps {
   items: Item[];
-  isLoading: boolean;
 }
 
-export const Cards = ({ items, isLoading }: CardsProps) => {
-  if (isLoading) {
-    return <div className={s.container}>Loading...</div>;
-  }
-
+export const Cards = ({ items }: CardsProps) => {
   return (
     <div className={s.container}>
       {items.map((card) => (
