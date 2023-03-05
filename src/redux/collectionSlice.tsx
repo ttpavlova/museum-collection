@@ -14,10 +14,11 @@ const initialState: CollectionState = {
 
 export const fetchCollection = createAsyncThunk(
   "collection/fetchCollection",
-  async () => {
+  async (query: string = "") => {
     const response = await fetch(
-      `https://collectionapi.metmuseum.org/public/collection/v1/search?medium=Sculpture&geoLocation=China&hasImages=true&q=""`
+      `https://collectionapi.metmuseum.org/public/collection/v1/search?medium=Sculpture&geoLocation=China&hasImages=true&q="${query}"`
     );
+
     const json = await response.json();
     const firstTenIDs = json.objectIDs.slice(0, 10);
     const responses = await Promise.all(
@@ -30,8 +31,11 @@ export const fetchCollection = createAsyncThunk(
     const items = await Promise.all(
       responses.map((response) => response.json())
     );
+    const result = items.filter(
+      (item) => item.message !== "Not a valid object"
+    );
 
-    return items as Item[];
+    return result as Item[];
   }
 );
 
