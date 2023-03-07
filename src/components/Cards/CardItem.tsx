@@ -6,8 +6,7 @@ interface CardItemProps {
 }
 
 export const CardItem = ({ id }: CardItemProps) => {
-  const { data } = useGetCollectionItemByIdQuery(id);
-  const item = data;
+  const { data: item } = useGetCollectionItemByIdQuery(id);
 
   return (
     <div>

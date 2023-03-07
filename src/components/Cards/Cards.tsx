@@ -2,13 +2,13 @@ import { CardItem } from "./CardItem";
 import s from "../Cards/Cards.module.scss";
 
 interface CardsProps {
-  IDs: number[];
+  ids: number[];
 }
 
-export const Cards = ({ IDs }: CardsProps) => {
+export const Cards = ({ ids }: CardsProps) => {
   return (
     <div className={s.container}>
-      {IDs.map((id) => (
+      {ids.map((id) => (
         <CardItem key={id} id={id} />
       ))}
     </div>
