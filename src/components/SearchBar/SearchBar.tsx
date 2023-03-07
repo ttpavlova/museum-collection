@@ -30,7 +30,7 @@ export const SearchBar = ({ setQueryToSearch }: SearchBarProps) => {
   }
 
   return (
-    <form className={s.search} onClick={handleSubmit}>
+    <form className={s.search} onSubmit={handleSubmit}>
       <input
         type="text"
         value={query}
