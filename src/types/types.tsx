@@ -8,3 +8,8 @@ export interface Item {
   country: string;
   primaryImage: string;
 }
+
+export interface Items {
+  total: number;
+  objectIDs: Array<number>;
+}

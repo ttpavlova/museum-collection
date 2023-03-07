@@ -8,11 +8,11 @@ export const Header = () => {
         Museum Collection
       </Link>
       <div className="sign-in_buttons">
-        <Link to="/signin" className={s.btn}>
-          Вход
+        <Link to="/signin" className={"btn btn-primary " + s.btn}>
+          Sign In
         </Link>
-        <Link to="/signup" className={s.btn}>
-          Регистрация
+        <Link to="/signup" className={"btn " + s.btn}>
+          Sign Up
         </Link>
       </div>
     </div>
