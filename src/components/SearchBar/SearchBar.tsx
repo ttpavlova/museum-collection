@@ -1,32 +1,23 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
-
+import { useNavigate } from "react-router-dom";
 import s from "../SearchBar/SearchBar.module.scss";
 
 interface SearchBarProps {
-  setQueryToSearch: Dispatch<SetStateAction<string>>;
+  queryParam: string;
 }
 
-export const SearchBar = ({ setQueryToSearch }: SearchBarProps) => {
-  const [query, setQuery] = useState("");
-  let [searchParams, setSearchParams] = useSearchParams();
+export const SearchBar = ({ queryParam }: SearchBarProps) => {
+  const [query, setQuery] = useState(queryParam);
+
+  const navigate = useNavigate();
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
     setQuery(e.currentTarget.value);
   }
 
-  function serializeFormQuery(query: string) {
-    return {
-      q: query,
-    };
-  }
-
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setQueryToSearch(query);
-    let params = serializeFormQuery(query);
-    setSearchParams(params);
+    navigate(`/search?q=${query}`);
   }
 
   return (

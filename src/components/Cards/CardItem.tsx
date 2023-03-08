@@ -13,7 +13,7 @@ export const CardItem = ({ id }: CardItemProps) => {
     <div>
       {item && (
         <Link
-          to={`/${item.id}`}
+          to={`/search/${item.id}`}
           title={`${item.title} Card Page`}
           className={s.container}
         >

@@ -14,7 +14,7 @@ export const CardDetails = () => {
     (field) =>
       item &&
       item[field as keyof typeof item] !== "" && (
-        <p className={s.description}>
+        <p className={s.description} key={field}>
           <span className={s.field_title}>{field}:</span>{" "}
           {item[field as keyof typeof item]}
         </p>
