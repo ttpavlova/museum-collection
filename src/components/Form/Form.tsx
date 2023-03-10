@@ -4,9 +4,10 @@ import s from "../Form/Form.module.scss";
 interface FormProps {
   name: string;
   handleStorage: (login: string, password: string) => void;
+  errorMessage: string;
 }
 
-export const Form = ({ name, handleStorage }: FormProps) => {
+export const Form = ({ name, handleStorage, errorMessage }: FormProps) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,6 +42,7 @@ export const Form = ({ name, handleStorage }: FormProps) => {
         placeholder="Password"
         required
       />
+      {errorMessage !== "" && <p className={s.error_message}>{errorMessage}</p>}
       <button className={"btn btn-primary " + s.btn}>{name}</button>
     </form>
   );

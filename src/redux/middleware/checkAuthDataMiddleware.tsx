@@ -11,9 +11,7 @@ export const checkAuthDataMiddleware: Middleware<{}, RootState> =
       const user = users.find((user) => user.login === action.payload.login);
 
       if (user) {
-        alert("User with this login already exists");
-
-        return;
+        throw new Error("User with this login already exists");
       }
     }
 
@@ -24,14 +22,10 @@ export const checkAuthDataMiddleware: Middleware<{}, RootState> =
         const isPasswordCorrect = user.password === action.payload.password;
 
         if (!isPasswordCorrect) {
-          alert("Incorrect password");
-
-          return;
+          throw new Error("Incorrect password");
         }
       } else {
-        alert("User with this login doesn't exist");
-
-        return;
+        throw new Error("User with this login doesn't exist");
       }
     }
 
