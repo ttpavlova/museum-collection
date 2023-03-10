@@ -3,9 +3,14 @@ import s from "../Form/Form.module.scss";
 
 interface FormProps {
   name: string;
+  handleSubmit: (
+    e: React.FormEvent<HTMLFormElement>,
+    login: string,
+    password: string
+  ) => void;
 }
 
-export const Form = ({ name }: FormProps) => {
+export const Form = ({ name, handleSubmit }: FormProps) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,12 +22,12 @@ export const Form = ({ name }: FormProps) => {
     setPassword(e.currentTarget.value);
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-  }
-
   return (
-    <form name={name} onSubmit={handleSubmit} className={s.form}>
+    <form
+      name={name}
+      onSubmit={(e) => handleSubmit(e, login, password)}
+      className={s.form}
+    >
       <input
         type="text"
         value={login}
