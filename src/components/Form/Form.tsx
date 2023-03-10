@@ -1,18 +1,18 @@
 import { useState } from "react";
+import { useAppDispatch } from "../../redux/hooks";
+import { addUser } from "../../redux/usersSlice";
+import { signIn } from "../../redux/usersSlice";
 import s from "../Form/Form.module.scss";
 
 interface FormProps {
   name: string;
-  handleSubmit: (
-    e: React.FormEvent<HTMLFormElement>,
-    login: string,
-    password: string
-  ) => void;
 }
 
-export const Form = ({ name, handleSubmit }: FormProps) => {
+export const Form = ({ name }: FormProps) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useAppDispatch();
 
   function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
     setLogin(e.currentTarget.value);
@@ -22,12 +22,21 @@ export const Form = ({ name, handleSubmit }: FormProps) => {
     setPassword(e.currentTarget.value);
   }
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    switch (name) {
+      case "Sign In":
+        dispatch(signIn({ login, password }));
+        break;
+      case "Sign Up":
+        dispatch(addUser({ login, password }));
+        break;
+    }
+  }
+
   return (
-    <form
-      name={name}
-      onSubmit={(e) => handleSubmit(e, login, password)}
-      className={s.form}
-    >
+    <form name={name} onSubmit={handleSubmit} className={s.form}>
       <input
         type="text"
         value={login}
