@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import s from "../SearchBar/SearchBar.module.scss";
 
@@ -7,25 +7,21 @@ interface SearchBarProps {
 }
 
 export const SearchBar = ({ queryParam }: SearchBarProps) => {
-  const [query, setQuery] = useState(queryParam);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
-  function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    setQuery(e.currentTarget.value);
-  }
-
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    navigate(`/search?q=${query}`);
+    navigate(`/search?q=${inputRef.current?.value}`);
   }
 
   return (
     <form className={s.search} onSubmit={handleSubmit}>
       <input
         type="text"
-        value={query}
-        onChange={handleChange}
+        ref={inputRef}
+        defaultValue={queryParam}
         className={s.search__input}
         placeholder="Search"
       ></input>
