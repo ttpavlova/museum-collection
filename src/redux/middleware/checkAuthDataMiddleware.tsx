@@ -28,6 +28,10 @@ export const checkAuthDataMiddleware: Middleware<{}, RootState> =
 
           return;
         }
+      } else {
+        alert("User with this login doesn't exist");
+
+        return;
       }
     }
 
