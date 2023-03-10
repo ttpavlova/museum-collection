@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useGetSearchedCollectionQuery } from "../../services/collectionApi";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { Cards } from "../Cards/Cards";
 import s from "../Home/Home.module.scss";
 
 export const Home = () => {
-  const [queryToSearch, setQueryToSearch] = useState("");
+  const [searchParams] = useSearchParams();
+  const queryParam = searchParams.get("q") || "";
 
-  const { data, error, isLoading } =
-    useGetSearchedCollectionQuery(queryToSearch);
+  const { data, error, isLoading } = useGetSearchedCollectionQuery(queryParam);
 
   return (
     <div className={s.container}>
-      <SearchBar setQueryToSearch={setQueryToSearch} />
+      <SearchBar queryParam={queryParam} />
       {error && (
         <div className={s.message}>Something went wrong. Try again later</div>
       )}
