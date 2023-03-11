@@ -2,6 +2,13 @@ import { Middleware } from "redux";
 import { RootState } from "../store";
 import { selectUsers } from "../usersSlice";
 
+export class AuthError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "AuthError";
+  }
+}
+
 export const checkAuthDataMiddleware: Middleware<{}, RootState> =
   (store) => (next) => (action) => {
     const state = store.getState();
@@ -11,7 +18,7 @@ export const checkAuthDataMiddleware: Middleware<{}, RootState> =
       const user = users.find((user) => user.login === action.payload.login);
 
       if (user) {
-        throw new Error("User with this login already exists");
+        throw new AuthError("User with this login already exists");
       }
     }
 
@@ -22,10 +29,10 @@ export const checkAuthDataMiddleware: Middleware<{}, RootState> =
         const isPasswordCorrect = user.password === action.payload.password;
 
         if (!isPasswordCorrect) {
-          throw new Error("Incorrect password");
+          throw new AuthError("Login or password is incorrect");
         }
       } else {
-        throw new Error("User with this login doesn't exist");
+        throw new AuthError("User with this login doesn't exist");
       }
     }
 

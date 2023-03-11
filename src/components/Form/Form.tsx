@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { AuthError } from "../../redux/middleware/checkAuthDataMiddleware";
 import s from "../Form/Form.module.scss";
 
 interface FormProps {
   name: string;
-  handleStorage: (login: string, password: string) => void;
+  onSubmit: (login: string, password: string) => void;
 }
 
-export const Form = ({ name, handleStorage }: FormProps) => {
+export const Form = ({ name, onSubmit }: FormProps) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const navigate = useNavigate();
 
   function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
     setLogin(e.currentTarget.value);
@@ -25,10 +23,9 @@ export const Form = ({ name, handleStorage }: FormProps) => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      handleStorage(login, password);
-      navigate("/");
+      onSubmit(login, password);
     } catch (e: unknown) {
-      if (e instanceof Error) {
+      if (e instanceof AuthError) {
         setErrorMessage(e.message);
       }
     }
