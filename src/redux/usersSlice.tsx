@@ -31,7 +31,7 @@ export const usersSlice = createSlice({
       const newUser = {
         login: action.payload.login,
         password: action.payload.password,
-        isAuth: false,
+        isAuth: true,
         favourites: [],
         history: [],
       };

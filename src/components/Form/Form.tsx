@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import s from "../Form/Form.module.scss";
 
 interface FormProps {
   name: string;
   handleStorage: (login: string, password: string) => void;
-  errorMessage: string;
 }
 
-export const Form = ({ name, handleStorage, errorMessage }: FormProps) => {
+export const Form = ({ name, handleStorage }: FormProps) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
     setLogin(e.currentTarget.value);
@@ -21,7 +24,14 @@ export const Form = ({ name, handleStorage, errorMessage }: FormProps) => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    handleStorage(login, password);
+    try {
+      handleStorage(login, password);
+      navigate("/");
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        setErrorMessage(e.message);
+      }
+    }
   }
 
   return (
