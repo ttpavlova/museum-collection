@@ -20,5 +20,12 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
       localStorage.setItem("users", JSON.stringify(users));
     }
 
+    if (action.type === "users/loadUsers") {
+      const usersData = localStorage.getItem("users") || "[]";
+      const users = JSON.parse(usersData);
+
+      action.payload = users;
+    }
+
     return next(action);
   };
