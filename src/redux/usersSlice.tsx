@@ -19,8 +19,15 @@ interface SignInData {
   password: string;
 }
 
+const reHydrateStore = () => {
+  const usersData = localStorage.getItem("users") || "[]";
+  const users = JSON.parse(usersData);
+
+  return users;
+};
+
 const initialState: Users = {
-  users: [],
+  users: reHydrateStore(),
 };
 
 export const usersSlice = createSlice({
