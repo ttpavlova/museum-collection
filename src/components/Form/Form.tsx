@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { AuthError } from "../../redux/middleware/checkAuthDataMiddleware";
 import s from "../Form/Form.module.scss";
 
 interface FormProps {
   name: string;
+  onSubmit: (login: string, password: string) => void;
 }
 
-export const Form = ({ name }: FormProps) => {
+export const Form = ({ name, onSubmit }: FormProps) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleChangeLogin(e: React.FormEvent<HTMLInputElement>) {
     setLogin(e.currentTarget.value);
@@ -19,6 +22,13 @@ export const Form = ({ name }: FormProps) => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    try {
+      onSubmit(login, password);
+    } catch (e: unknown) {
+      if (e instanceof AuthError) {
+        setErrorMessage(e.message);
+      }
+    }
   }
 
   return (
@@ -39,6 +49,7 @@ export const Form = ({ name }: FormProps) => {
         placeholder="Password"
         required
       />
+      {errorMessage !== "" && <p className={s.error_message}>{errorMessage}</p>}
       <button className={"btn btn-primary " + s.btn}>{name}</button>
     </form>
   );
