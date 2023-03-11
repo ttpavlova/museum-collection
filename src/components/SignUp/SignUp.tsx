@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { addUser } from "../../redux/usersSlice";
 import { Form } from "../Form/Form";
@@ -9,10 +9,12 @@ export const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const signUpUser = (login: string, password: string) => {
     try {
       dispatch(addUser({ login, password }));
+      navigate("/");
     } catch (e: unknown) {
       if (e instanceof Error) {
         setErrorMessage(e.message);
