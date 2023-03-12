@@ -8,6 +8,7 @@ export const History = () => {
   const dispatch = useAppDispatch();
   const authUser = useAppSelector(selectAuthUser);
   const historyUrls = authUser?.history;
+  const isHistoryEmpty = historyUrls?.length === 0;
 
   const handleDelete = (url: string) => {
     dispatch(removeHistory(url));
@@ -26,8 +27,13 @@ export const History = () => {
   ));
 
   return (
-    <div className={s.container}>
-      <ul>{historyList}</ul>
-    </div>
+    <>
+      {!isHistoryEmpty && (
+        <div className={s.container}>
+          <ul>{historyList}</ul>
+        </div>
+      )}
+      {isHistoryEmpty && <div className={s.message}>History is empty.</div>}
+    </>
   );
 };

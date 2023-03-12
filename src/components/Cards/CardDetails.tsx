@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectAuthUser, toggleFavourite } from "../../redux/usersSlice";
 import { useGetCollectionItemByIdQuery } from "../../services/collectionApi";
@@ -10,6 +10,7 @@ export const CardDetails = () => {
   const id = Number(paramId);
   const { data: item } = useGetCollectionItemByIdQuery(id);
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const authUser = useAppSelector(selectAuthUser);
   const isFavourite = authUser?.favourites.includes(id);
@@ -28,7 +29,11 @@ export const CardDetails = () => {
   );
 
   const handleToggleFavourite = () => {
-    dispatch(toggleFavourite(id));
+    if (authUser) {
+      dispatch(toggleFavourite(id));
+    } else {
+      navigate("/signin");
+    }
   };
 
   return (
