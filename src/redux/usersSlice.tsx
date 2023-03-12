@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
-interface User {
+export interface User {
   login: string;
   password: string;
   isAuth: boolean;
@@ -17,6 +17,10 @@ interface Users {
 interface SignInData {
   login: string;
   password: string;
+}
+
+interface SignOutData {
+  login: string;
 }
 
 const initialState: Users = {
@@ -53,8 +57,10 @@ export const usersSlice = createSlice({
       }
     },
 
-    logOut: (state, action: PayloadAction<string>) => {
-      const user = state.users.find((user) => user.login === action.payload);
+    logOut: (state, action: PayloadAction<SignOutData>) => {
+      const user = state.users.find(
+        (user) => user.login === action.payload.login
+      );
 
       if (user) {
         user.isAuth = false;
@@ -66,5 +72,7 @@ export const usersSlice = createSlice({
 export const { addUser, loadUsers, signIn, logOut } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.users;
+export const selectAuthUser = (state: RootState) =>
+  state.users.users.find((user) => user.isAuth === true);
 
 export default usersSlice.reducer;
