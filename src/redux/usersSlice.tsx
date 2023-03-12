@@ -66,10 +66,27 @@ export const usersSlice = createSlice({
         user.isAuth = false;
       }
     },
+
+    toggleFavourite: (state, action: PayloadAction<number>) => {
+      const user = state.users.find((user) => user.isAuth === true);
+
+      if (user) {
+        if (user.favourites.includes(action.payload)) {
+          const updatedFavourites = user.favourites.filter(
+            (id) => id !== action.payload
+          );
+
+          user.favourites = updatedFavourites;
+        } else {
+          user.favourites.push(action.payload);
+        }
+      }
+    },
   },
 });
 
-export const { addUser, loadUsers, signIn, logOut } = usersSlice.actions;
+export const { addUser, loadUsers, signIn, logOut, toggleFavourite } =
+  usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.users;
 export const selectAuthUser = (state: RootState) =>
