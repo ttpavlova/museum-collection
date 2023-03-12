@@ -82,11 +82,44 @@ export const usersSlice = createSlice({
         }
       }
     },
+
+    addHistory: (state, action: PayloadAction<string>) => {
+      const user = state.users.find((user) => user.isAuth === true);
+
+      if (user) {
+        const updatedHistory = user.history.filter(
+          (url) => url !== action.payload
+        );
+
+        updatedHistory.push(action.payload);
+
+        user.history = updatedHistory;
+      }
+    },
+
+    removeHistory: (state, action: PayloadAction<string>) => {
+      const user = state.users.find((user) => user.isAuth === true);
+
+      if (user) {
+        const updatedHistory = user.history.filter(
+          (url) => url !== action.payload
+        );
+
+        user.history = updatedHistory;
+      }
+    },
   },
 });
 
-export const { addUser, loadUsers, signIn, logOut, toggleFavourite } =
-  usersSlice.actions;
+export const {
+  addUser,
+  loadUsers,
+  signIn,
+  logOut,
+  toggleFavourite,
+  addHistory,
+  removeHistory,
+} = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.users;
 export const selectAuthUser = (state: RootState) =>

@@ -7,6 +7,7 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
     const users = store.getState().users.users;
     const user = users.find((user) => user.isAuth === true);
     const favourites = user?.favourites;
+    const history = user?.history;
 
     if (action.type === "users/addUser") {
       const newUser = {
@@ -59,6 +60,33 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
 
         localStorage.setItem("users", JSON.stringify(updatedUsers));
       }
+    }
+
+    if (action.type === "users/addHistory") {
+      let updatedHistory = history?.filter((url) => url !== action.payload);
+      updatedHistory?.push(action.payload);
+
+      const updatedUsers = users.map((user: User) => {
+        if (user.isAuth === true) {
+          return { ...user, history: updatedHistory };
+        }
+        return user;
+      });
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+    }
+
+    if (action.type === "users/removeHistory") {
+      const updatedHistory = history?.filter((url) => url !== action.payload);
+
+      const updatedUsers = users.map((user: User) => {
+        if (user.isAuth === true) {
+          return { ...user, history: updatedHistory };
+        }
+        return user;
+      });
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
     }
 
     return next(action);
