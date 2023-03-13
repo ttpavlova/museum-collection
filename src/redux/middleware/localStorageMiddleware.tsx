@@ -5,7 +5,7 @@ import { User } from "../usersSlice";
 export const localStorageMiddleware: Middleware<{}, RootState> =
   (store) => (next) => (action) => {
     const users = store.getState().users.users;
-    const user = users.find((user) => user.isAuth === true);
+    const user = users.find((user) => user.isAuth);
     const favourites = user?.favourites;
     const history = user?.history;
 
@@ -51,12 +51,7 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
           updatedFavourites = [...favourites, action.payload];
         }
 
-        const updatedUsers = users.map((user: User) => {
-          if (user.isAuth === true) {
-            return { ...user, favourites: updatedFavourites };
-          }
-          return user;
-        });
+        const updatedUsers = getUpdatedUsers("favourites", updatedFavourites);
 
         localStorage.setItem("users", JSON.stringify(updatedUsers));
       }
@@ -66,12 +61,8 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
       let updatedHistory = history?.filter((url) => url !== action.payload);
       updatedHistory?.push(action.payload);
 
-      const updatedUsers = users.map((user: User) => {
-        if (user.isAuth === true) {
-          return { ...user, history: updatedHistory };
-        }
-        return user;
-      });
+      const updatedUsers =
+        updatedHistory && getUpdatedUsers("history", updatedHistory);
 
       localStorage.setItem("users", JSON.stringify(updatedUsers));
     }
@@ -79,14 +70,24 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
     if (action.type === "users/removeHistory") {
       const updatedHistory = history?.filter((url) => url !== action.payload);
 
+      const updatedUsers =
+        updatedHistory && getUpdatedUsers("history", updatedHistory);
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+    }
+
+    function getUpdatedUsers(
+      fieldName: string,
+      updatedField: number[] | string[]
+    ) {
       const updatedUsers = users.map((user: User) => {
-        if (user.isAuth === true) {
-          return { ...user, history: updatedHistory };
+        if (user.isAuth) {
+          return { ...user, [fieldName]: updatedField };
         }
         return user;
       });
 
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      return updatedUsers;
     }
 
     return next(action);

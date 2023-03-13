@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { useAuthUser } from "../../hooks/useAuthUser";
+import { useAuth } from "../../hooks/useAuth";
 import { useAppDispatch } from "../../redux/hooks";
 import { logOut } from "../../redux/usersSlice";
 import s from "../Header/Header.module.scss";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
-  const authUser = useAuthUser();
+  const authUser = useAuth();
 
   const handleLogOut = () => {
     const login = authUser?.login;
