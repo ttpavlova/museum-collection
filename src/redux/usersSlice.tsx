@@ -26,7 +26,7 @@ interface SignOutData {
 const getDataFromLocalStorage = () => {
   const usersData = localStorage.getItem("users");
 
-  if (usersData === null || usersData === String(undefined)) {
+  if (usersData === null || usersData === "undefined") {
     return [];
   }
 
