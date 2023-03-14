@@ -18,6 +18,10 @@
     color: #3b3b3b;
 }
 
-.btn:last-child {
+.btn {
     margin-left: 10px;
+}
+
+.btn:first-child {
+    margin-left: 0;
 }

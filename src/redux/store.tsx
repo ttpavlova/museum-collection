@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { collectionApi } from "../services/collectionApi";
 import { checkAuthDataMiddleware } from "./middleware/checkAuthDataMiddleware";
+import { localStorageMiddleware } from "./middleware/localStorageMiddleware";
 import usersReducer from "./usersSlice";
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ export const store = configureStore({
     getDefaultMiddleware().concat([
       collectionApi.middleware,
       checkAuthDataMiddleware,
+      localStorageMiddleware,
     ]),
 });
 

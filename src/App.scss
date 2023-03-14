@@ -46,6 +46,10 @@ body {
     transition: 0.1s ease;
 }
 
+.btn-small {
+    padding: 5px 15px;
+}
+
 @media screen and (min-width: 620px) {
     body {
       font-size: 1.6rem;

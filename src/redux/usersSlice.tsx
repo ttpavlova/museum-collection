@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
-interface User {
+export interface User {
   login: string;
   password: string;
   isAuth: boolean;
@@ -19,8 +19,19 @@ interface SignInData {
   password: string;
 }
 
+interface SignOutData {
+  login: string;
+}
+
+const getDataFromLocalStorage = () => {
+  const usersData = localStorage.getItem("users") || "[]";
+  const users = JSON.parse(usersData);
+
+  return users;
+};
+
 const initialState: Users = {
-  users: [],
+  users: getDataFromLocalStorage(),
 };
 
 export const usersSlice = createSlice({
@@ -49,18 +60,71 @@ export const usersSlice = createSlice({
       }
     },
 
-    logOut: (state, action: PayloadAction<string>) => {
-      const user = state.users.find((user) => user.login === action.payload);
+    logOut: (state, action: PayloadAction<SignOutData>) => {
+      const user = state.users.find(
+        (user) => user.login === action.payload.login
+      );
 
       if (user) {
         user.isAuth = false;
       }
     },
+
+    toggleFavourite: (state, action: PayloadAction<number>) => {
+      const user = state.users.find((user) => user.isAuth === true);
+
+      if (user) {
+        if (user.favourites.includes(action.payload)) {
+          const updatedFavourites = user.favourites.filter(
+            (id) => id !== action.payload
+          );
+
+          user.favourites = updatedFavourites;
+        } else {
+          user.favourites.push(action.payload);
+        }
+      }
+    },
+
+    addHistory: (state, action: PayloadAction<string>) => {
+      const user = state.users.find((user) => user.isAuth === true);
+
+      if (user) {
+        const updatedHistory = user.history.filter(
+          (url) => url !== action.payload
+        );
+
+        updatedHistory.push(action.payload);
+
+        user.history = updatedHistory;
+      }
+    },
+
+    removeHistory: (state, action: PayloadAction<string>) => {
+      const user = state.users.find((user) => user.isAuth === true);
+
+      if (user) {
+        const updatedHistory = user.history.filter(
+          (url) => url !== action.payload
+        );
+
+        user.history = updatedHistory;
+      }
+    },
   },
 });
 
-export const { addUser, signIn, logOut } = usersSlice.actions;
+export const {
+  addUser,
+  signIn,
+  logOut,
+  toggleFavourite,
+  addHistory,
+  removeHistory,
+} = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.users;
+export const selectAuthUser = (state: RootState) =>
+  state.users.users.find((user) => user.isAuth === true);
 
 export default usersSlice.reducer;
