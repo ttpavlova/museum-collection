@@ -17,12 +17,6 @@ body {
     background-color: variables.$secondary-color;
 }
 
-.section {
-    min-height: calc(100vh - #{variables.$header});
-    width: 100%;
-    padding: 20px 0 40px 0;
-}
-
 .btn {
     display: inline-block;
     padding: 10px 15px;
