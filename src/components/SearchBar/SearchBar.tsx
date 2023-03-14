@@ -18,7 +18,11 @@ export const SearchBar = ({ queryParam }: SearchBarProps) => {
 
   useEffect(() => {
     const url = `/search?q=${debouncedValue}`;
-    dispatch(addHistory(url));
+
+    if (debouncedValue !== "") {
+      dispatch(addHistory(url));
+    }
+
     navigate(url);
   }, [debouncedValue]);
 
