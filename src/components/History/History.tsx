@@ -26,14 +26,11 @@ export const History = () => {
     </li>
   ));
 
+  if (isHistoryEmpty) return <div className={s.message}>History is empty.</div>;
+
   return (
-    <>
-      {!isHistoryEmpty && (
-        <div className={s.container}>
-          <ul>{historyList}</ul>
-        </div>
-      )}
-      {isHistoryEmpty && <div className={s.message}>History is empty.</div>}
-    </>
+    <div className={s.container}>
+      <ul>{historyList}</ul>
+    </div>
   );
 };

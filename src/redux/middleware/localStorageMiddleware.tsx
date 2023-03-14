@@ -23,13 +23,6 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
       localStorage.setItem("users", JSON.stringify(updatedUsers));
     }
 
-    if (action.type === "users/loadUsers") {
-      const usersData = localStorage.getItem("users") || "[]";
-      const users = JSON.parse(usersData);
-
-      action.payload = users;
-    }
-
     if (action.type === "users/signIn" || action.type === "users/logOut") {
       const updatedUsers = users.map((user: User) => {
         if (user.login === action.payload.login) {

@@ -23,8 +23,15 @@ interface SignOutData {
   login: string;
 }
 
+const getDataFromLocalStorage = () => {
+  const usersData = localStorage.getItem("users") || "[]";
+  const users = JSON.parse(usersData);
+
+  return users;
+};
+
 const initialState: Users = {
-  users: [],
+  users: getDataFromLocalStorage(),
 };
 
 export const usersSlice = createSlice({
@@ -41,10 +48,6 @@ export const usersSlice = createSlice({
       };
 
       state.users.push(newUser);
-    },
-
-    loadUsers: (state, action: PayloadAction<User[]>) => {
-      state.users = action.payload;
     },
 
     signIn: (state, action: PayloadAction<SignInData>) => {
@@ -113,7 +116,6 @@ export const usersSlice = createSlice({
 
 export const {
   addUser,
-  loadUsers,
   signIn,
   logOut,
   toggleFavourite,

@@ -8,15 +8,13 @@ export const Favourites = () => {
   const favouritesIds = authUser?.favourites;
   const isFavouritesEmpty = favouritesIds?.length === 0;
 
+  if (isFavouritesEmpty)
+    return <div className={s.message}>No favourites yet.</div>;
+
   return (
-    <>
-      {!isFavouritesEmpty && (
-        <div className={s.container}>
-          {favouritesIds &&
-            favouritesIds.map((id) => <CardItem key={id} id={id} />)}
-        </div>
-      )}
-      {isFavouritesEmpty && <div className={s.message}>No favourites yet.</div>}
-    </>
+    <div className={s.container}>
+      {favouritesIds &&
+        favouritesIds.map((id) => <CardItem key={id} id={id} />)}
+    </div>
   );
 };
