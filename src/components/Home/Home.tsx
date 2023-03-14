@@ -15,25 +15,28 @@ export const Home = () => {
   const [searchParams] = useSearchParams();
   const queryParam = searchParams.get("q") || "";
 
-  const { data, error } = useGetSearchedCollectionQuery(queryParam);
-
-  if (error)
-    return (
-      <div className={s.message}>Something went wrong. Try again later</div>
-    );
-
-  if (data && data.total === 0)
-    return (
-      <div className={s.message}>
-        There are no results found. Please try another search.
-      </div>
-    );
+  const { data, error, isLoading } = useGetSearchedCollectionQuery(queryParam);
 
   return (
     <div className={s.container}>
       <SearchBar queryParam={queryParam} />
       <Suspense fallback={<Spinner />}>
-        {data && <Cards ids={data.objectIDs.slice(0, 10)} />}
+        <>
+          {error && (
+            <div className={s.message}>
+              Something went wrong. Try again later
+            </div>
+          )}
+          {isLoading && <Spinner />}
+          {data && data.total === 0 && (
+            <div className={s.message}>
+              There are no results found. Please try another search.
+            </div>
+          )}
+          {data && data.total > 0 && (
+            <Cards ids={data.objectIDs.slice(0, 10)} />
+          )}
+        </>
       </Suspense>
     </div>
   );

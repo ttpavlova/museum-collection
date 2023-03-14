@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
 import { useAppDispatch } from "../../redux/hooks";
 import { addHistory } from "../../redux/usersSlice";
 import s from "../SearchBar/SearchBar.module.scss";
@@ -9,28 +10,35 @@ interface SearchBarProps {
 }
 
 export const SearchBar = ({ queryParam }: SearchBarProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [query, setQuery] = useState(queryParam);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const debouncedValue = useDebounce(query, 1500);
+
+  useEffect(() => {
+    const url = `/search?q=${debouncedValue}`;
+    dispatch(addHistory(url));
+    navigate(url);
+  }, [debouncedValue]);
+
+  function handleChange(e: React.FormEvent<HTMLInputElement>) {
+    setQuery(e.currentTarget.value);
+  }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const url = `/search?q=${inputRef.current?.value}`;
-    dispatch(addHistory(url));
-    navigate(url);
   }
 
   return (
     <form className={s.search} onSubmit={handleSubmit}>
       <input
         type="text"
-        ref={inputRef}
-        defaultValue={queryParam}
+        value={query}
+        onChange={handleChange}
         className={s.search__input}
         placeholder="Search"
       ></input>
-      <button className={"btn btn-primary " + s.btn}>Search</button>
     </form>
   );
 };
