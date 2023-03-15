@@ -24,10 +24,13 @@ interface SignOutData {
 }
 
 const getDataFromLocalStorage = () => {
-  const usersData = localStorage.getItem("users") || "[]";
-  const users = JSON.parse(usersData);
+  const usersData = localStorage.getItem("users");
 
-  return users;
+  if (usersData === null || usersData === "undefined") {
+    return [];
+  }
+
+  return JSON.parse(usersData);
 };
 
 const initialState: Users = {

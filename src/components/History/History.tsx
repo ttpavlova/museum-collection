@@ -16,7 +16,7 @@ export const History = () => {
 
   const historyList = historyUrls?.map((url: string) => (
     <li className={s.item} key={uuid()}>
-      <Link to={`${url}`}>{url}</Link>
+      <Link to={`${url}`}>{url.slice(10)}</Link>
       <button
         onClick={() => handleDelete(url)}
         className={"btn btn-small " + s.btn}

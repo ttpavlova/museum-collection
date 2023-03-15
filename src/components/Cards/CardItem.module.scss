@@ -1,3 +1,5 @@
+@use "/src/styles/variables";
+
 .container {
     display: inline-block;
     height: 100%;
@@ -16,6 +18,15 @@
 
     background-color: #e0e0e0;
     cursor: pointer;
+}
+
+.container.beige_theme {
+    box-shadow: 0 2px 20px 1px rgb(0 0 0 / 10%);
+}
+
+.container.beige_theme:hover {
+    background-color: #fff;
+    box-shadow: 0 5px 20px 3px rgb(0 0 0 / 20%);
 }
 
 .image_wrapper {
