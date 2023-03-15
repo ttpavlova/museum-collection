@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useAppDispatch } from "../../redux/hooks";
 import { addHistory } from "../../redux/usersSlice";
@@ -11,9 +12,9 @@ interface SearchBarProps {
 
 export const SearchBar = ({ queryParam }: SearchBarProps) => {
   const [query, setQuery] = useState(queryParam);
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const debouncedValue = useDebounce(query, 1500);
 
   useEffect(() => {
@@ -23,8 +24,15 @@ export const SearchBar = ({ queryParam }: SearchBarProps) => {
       dispatch(addHistory(url));
     }
 
-    navigate(url);
+    let params = serializeFormQuery(debouncedValue);
+    setSearchParams(params);
   }, [debouncedValue]);
+
+  function serializeFormQuery(query: string) {
+    return {
+      q: query,
+    };
+  }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
     setQuery(e.currentTarget.value);
@@ -45,4 +53,8 @@ export const SearchBar = ({ queryParam }: SearchBarProps) => {
       ></input>
     </form>
   );
+};
+
+SearchBar.propTypes = {
+  queryParam: PropTypes.string,
 };
