@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+# Museum Collection
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+Учебный проект выполнен в рамках React-интенсива компании Aston.
 
-## Available Scripts
+Реализованы следующие требования к функциональности:
 
-In the project directory, you can run:
+## 1 уровень
 
-### `npm start`
+### React
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Функциональные компоненты c хуками в приоритете над классовыми.
+- Есть четкое разделение на умные и глупые компоненты.
+- Есть рендеринг списков: [History](https://github.com/ttpavlova/museum-collection/blob/main/src/components/History/History.tsx), [Favourites](https://github.com/ttpavlova/museum-collection/blob/main/src/components/Favourites/Favourites.tsx), [Cards](https://github.com/ttpavlova/museum-collection/blob/main/src/components/Cards/Cards.tsx), [CardDetails](https://github.com/ttpavlova/museum-collection/blob/main/src/components/Cards/CardDetails.tsx).
+- Реализована хотя бы одна форма: [Form](https://github.com/ttpavlova/museum-collection/blob/main/src/components/Form/Form.tsx), [SearchBar](https://github.com/ttpavlova/museum-collection/blob/main/src/components/SearchBar/SearchBar.tsx), [SearchBarMini](https://github.com/ttpavlova/museum-collection/blob/main/src/components/SearchBar/SearchBarMini.tsx).
+- Есть применение Контекст API: [ThemeProvider](https://github.com/ttpavlova/museum-collection/blob/main/src/ThemeProvider.tsx).
+- Есть применение предохранителя: использована библиотека react-error-boundary, страница ошибки - [ErrorPage](https://github.com/ttpavlova/museum-collection/blob/main/src/components/ErrorPage/ErrorPage.tsx).
+- Есть хотя бы один кастомный хук: [useAuth](https://github.com/ttpavlova/museum-collection/blob/main/src/hooks/useAuth.tsx), [useDebounce](https://github.com/ttpavlova/museum-collection/blob/main/src/hooks/useDebounce.tsx).
+- Хотя бы несколько компонентов используют PropTypes: [Cards](https://github.com/ttpavlova/museum-collection/blob/main/src/components/Cards/Cards.tsx), [SearchBar](https://github.com/ttpavlova/museum-collection/blob/main/src/components/SearchBar/SearchBar.tsx).
+- Поиск не должен триггерить много запросов к серверу: [useDebounce](https://github.com/ttpavlova/museum-collection/blob/main/src/hooks/useDebounce.tsx), использован в компоненте [SearchBar](https://github.com/ttpavlova/museum-collection/blob/main/src/components/SearchBar/SearchBar.tsx).
+- Есть применение lazy + Suspense: [App](https://github.com/ttpavlova/museum-collection/blob/main/src/App.tsx), SearchPage.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Redux
 
-### `npm test`
+- Используем Modern Redux with Redux Toolkit: [store](https://github.com/ttpavlova/museum-collection/blob/main/src/redux/store.tsx).
+- Используем слайсы: [usersSlice](https://github.com/ttpavlova/museum-collection/blob/main/src/redux/usersSlice.tsx).
+- Есть хотя бы одна кастомная мидлвара: [checkAuthDataMiddleware](https://github.com/ttpavlova/museum-collection/blob/main/src/redux/middleware/checkAuthDataMiddleware.tsx), [localStorageMiddleware](https://github.com/ttpavlova/museum-collection/blob/main/src/redux/middleware/localStorageMiddleware.tsx).
+- Используется RTK Query: [collectionApi](https://github.com/ttpavlova/museum-collection/blob/main/src/services/collectionApi.tsx).
+- Используется Transforming Responses: [collectionApi](https://github.com/ttpavlova/museum-collection/blob/main/src/services/collectionApi.tsx).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 2 уровень
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Использован TypeScript.
