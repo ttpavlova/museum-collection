@@ -74,7 +74,7 @@ export const usersSlice = createSlice({
     },
 
     toggleFavourite: (state, action: PayloadAction<number>) => {
-      const user = state.users.find((user) => user.isAuth === true);
+      const user = state.users.find((user) => user.isAuth);
 
       if (user) {
         if (user.favourites.includes(action.payload)) {
@@ -90,7 +90,7 @@ export const usersSlice = createSlice({
     },
 
     addHistory: (state, action: PayloadAction<string>) => {
-      const user = state.users.find((user) => user.isAuth === true);
+      const user = state.users.find((user) => user.isAuth);
 
       if (user) {
         const updatedHistory = user.history.filter(
@@ -104,7 +104,7 @@ export const usersSlice = createSlice({
     },
 
     removeHistory: (state, action: PayloadAction<string>) => {
-      const user = state.users.find((user) => user.isAuth === true);
+      const user = state.users.find((user) => user.isAuth);
 
       if (user) {
         const updatedHistory = user.history.filter(
@@ -116,7 +116,7 @@ export const usersSlice = createSlice({
     },
 
     clearHistory: (state) => {
-      const user = state.users.find((user) => user.isAuth === true);
+      const user = state.users.find((user) => user.isAuth);
 
       if (user) {
         user.history = [];
@@ -137,6 +137,6 @@ export const {
 
 export const selectUsers = (state: RootState) => state.users.users;
 export const selectAuthUser = (state: RootState) =>
-  state.users.users.find((user) => user.isAuth === true);
+  state.users.users.find((user) => user.isAuth);
 
 export default usersSlice.reducer;

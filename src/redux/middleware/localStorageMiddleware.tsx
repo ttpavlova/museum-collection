@@ -72,8 +72,7 @@ export const localStorageMiddleware: Middleware<{}, RootState> =
     if (action.type === "users/clearHistory") {
       const updatedHistory: string[] = [];
 
-      const updatedUsers =
-        updatedHistory && getUpdatedUsers("history", updatedHistory);
+      const updatedUsers = getUpdatedUsers("history", updatedHistory);
 
       localStorage.setItem("users", JSON.stringify(updatedUsers));
     }
