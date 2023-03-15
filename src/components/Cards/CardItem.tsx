@@ -10,12 +10,14 @@ interface CardItemProps {
 }
 
 export const CardItem = ({ id }: CardItemProps) => {
-  const { data: item } = useGetCollectionItemByIdQuery(id);
+  const { data: item, error } = useGetCollectionItemByIdQuery(id);
   const { theme } = useContext(ThemeContext);
 
   const containerClass = classNames(s.container, {
     [s.beige_theme]: theme === "beige",
   });
+
+  if (error) return <div className="hidden"></div>;
 
   return (
     <div>
