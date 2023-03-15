@@ -1,9 +1,11 @@
 import { lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 import { useGetSearchedCollectionQuery } from "../../services/collectionApi";
 import { SearchBar } from "../SearchBar/SearchBar";
-import s from "../Home/Home.module.scss";
 import { Spinner } from "../Spinner/Spinner";
+import { ErrorPage } from "../ErrorPage/ErrorPage";
+import s from "../Home/Home.module.scss";
 
 const Cards = lazy(() =>
   import("../Cards/Cards").then(({ Cards }) => ({
@@ -34,7 +36,9 @@ export const Home = () => {
             </div>
           )}
           {data && data.total > 0 && (
-            <Cards ids={data.objectIDs.slice(0, 10)} />
+            <ErrorBoundary FallbackComponent={ErrorPage}>
+              <Cards ids={data.objectIDs.slice(0, 10)} />
+            </ErrorBoundary>
           )}
         </>
       </Suspense>
