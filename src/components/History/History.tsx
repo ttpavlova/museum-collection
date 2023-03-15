@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import uuid from "react-uuid";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { removeHistory, selectAuthUser } from "../../redux/usersSlice";
+import {
+  clearHistory,
+  removeHistory,
+  selectAuthUser,
+} from "../../redux/usersSlice";
 import s from "../History/History.module.scss";
 
 export const History = () => {
@@ -13,6 +17,8 @@ export const History = () => {
   const handleDelete = (url: string) => {
     dispatch(removeHistory(url));
   };
+
+  const clearAll = () => dispatch(clearHistory());
 
   const historyList = historyUrls?.map((url: string) => (
     <li className={s.item} key={uuid()}>
@@ -30,7 +36,12 @@ export const History = () => {
 
   return (
     <div className={s.container}>
-      <ul>{historyList}</ul>
+      <div className={s.content}>
+        <button onClick={clearAll} className={"btn " + s.clear_all_btn}>
+          Clear all
+        </button>
+        <ul>{historyList}</ul>
+      </div>
     </div>
   );
 };

@@ -114,6 +114,14 @@ export const usersSlice = createSlice({
         user.history = updatedHistory;
       }
     },
+
+    clearHistory: (state) => {
+      const user = state.users.find((user) => user.isAuth === true);
+
+      if (user) {
+        user.history = [];
+      }
+    },
   },
 });
 
@@ -124,6 +132,7 @@ export const {
   toggleFavourite,
   addHistory,
   removeHistory,
+  clearHistory,
 } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.users;
