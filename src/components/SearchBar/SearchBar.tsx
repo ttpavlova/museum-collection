@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useAppDispatch } from "../../redux/hooks";
 import { addHistory } from "../../redux/usersSlice";
@@ -45,4 +46,8 @@ export const SearchBar = ({ queryParam }: SearchBarProps) => {
       ></input>
     </form>
   );
+};
+
+SearchBar.propTypes = {
+  queryParam: PropTypes.string,
 };

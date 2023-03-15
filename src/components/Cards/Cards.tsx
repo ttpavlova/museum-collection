@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { CardItem } from "./CardItem";
 import s from "../Cards/Cards.module.scss";
 
@@ -13,4 +14,8 @@ export const Cards = ({ ids }: CardsProps) => {
       ))}
     </div>
   );
+};
+
+Cards.propTypes = {
+  ids: PropTypes.array,
 };
