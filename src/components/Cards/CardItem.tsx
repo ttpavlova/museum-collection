@@ -17,7 +17,7 @@ export const CardItem = ({ id }: CardItemProps) => {
     [s.beige_theme]: theme === "beige",
   });
 
-  if (error) return <div className="hidden"></div>;
+  if (error) return null;
 
   return (
     <div>
