@@ -17,7 +17,7 @@
 - Есть хотя бы один кастомный хук: [useAuth](https://github.com/ttpavlova/museum-collection/blob/main/src/hooks/useAuth.tsx), [useDebounce](https://github.com/ttpavlova/museum-collection/blob/main/src/hooks/useDebounce.tsx).
 - Хотя бы несколько компонентов используют PropTypes: [Cards](https://github.com/ttpavlova/museum-collection/blob/main/src/components/Cards/Cards.tsx), [SearchBar](https://github.com/ttpavlova/museum-collection/blob/main/src/components/SearchBar/SearchBar.tsx).
 - Поиск не должен триггерить много запросов к серверу: [useDebounce](https://github.com/ttpavlova/museum-collection/blob/main/src/hooks/useDebounce.tsx), использован в компоненте [SearchBar](https://github.com/ttpavlova/museum-collection/blob/main/src/components/SearchBar/SearchBar.tsx).
-- Есть применение lazy + Suspense: [App](https://github.com/ttpavlova/museum-collection/blob/main/src/App.tsx), SearchPage.
+- Есть применение lazy + Suspense: [App](https://github.com/ttpavlova/museum-collection/blob/main/src/App.tsx), [SearchPage](https://github.com/ttpavlova/museum-collection/blob/main/src/components/SearchPage/SearchPage.tsx).
 
 ### Redux
 
