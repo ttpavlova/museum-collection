@@ -2,8 +2,8 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { Header } from "./components/Header/Header";
-import { Description } from "./components/Description/Description";
 import { Home } from "./components/Home/Home";
+import { SearchPage } from "./components/SearchPage/SearchPage";
 import { SignIn } from "./components/SignIn/SignIn";
 import { SignUp } from "./components/SignUp/SignUp";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
@@ -35,8 +35,8 @@ export const App = () => {
       <Header />
       <Suspense fallback={<Spinner />}>
         <Routes>
-          <Route path="/" element={<Description />} />
-          <Route path="/search" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route
             path="/search/:id"
             element={
