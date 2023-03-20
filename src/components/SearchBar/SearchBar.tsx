@@ -12,6 +12,7 @@ interface SearchBarProps {
 
 export const SearchBar = ({ queryParam }: SearchBarProps) => {
   const [query, setQuery] = useState(queryParam);
+  // eslint-disable-next-line
   let [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ export const SearchBar = ({ queryParam }: SearchBarProps) => {
 
     let params = serializeFormQuery(debouncedValue);
     setSearchParams(params);
-  }, [debouncedValue]);
+  }, [debouncedValue, dispatch, setSearchParams]);
 
   function serializeFormQuery(query: string) {
     return {
